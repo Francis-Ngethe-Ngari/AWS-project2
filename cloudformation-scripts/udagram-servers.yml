@@ -125,13 +125,14 @@ Resources:
           Fn::Base64: !Sub |
             #!/bin/bash
             apt-get update -y
-            apt install python3-pip
-            pip3 install --upgrade pip
-            pip3 install awscli --upgrade
+            apt-get install unzip -y
+            apt-get install awscli -y
+            unzip awscli
             apt-get install apache2 -y
             systemctl start apache2.service
             cd /var/www/html
-            echo "it works Udagram, Udacity!" > index.html
+            aws s3 cp s3://bucket-web-1/index.html > index.html 
+            
 
         ImageId: !Ref AMIId
         IamInstanceProfile: 
